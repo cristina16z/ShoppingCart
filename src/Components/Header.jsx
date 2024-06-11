@@ -1,18 +1,7 @@
-
-import {useMemo} from 'react'
-
-export default function Header({cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart}){
-
-    //State Derivado
-    /*useMemo evita que el código se ejecuta si ninguna de las dependencias ha cambiado
-    es decir,no hagas render de mi aplicacion hasta que no cambie lo que te digo
-    en éste caso sólo renderizará si carrito cambia*/
-    const isEmptyCarrito = useMemo( () => cart.length === 0, [cart] )
-    const carTotal =  useMemo( () => cart.reduce((total, item) => total + (item.quantity * item.price), 0), [cart])
-       
+export default function Header({cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart, isEmptyCarrito, carTotal}){
 
     return(
-        <header className="py-5 header">
+        <header className="py-5 header">s
         <div className="container-xl">
             <div className="row justify-content-center justify-content-md-between">
                 <div className="col-8 col-md-3">
