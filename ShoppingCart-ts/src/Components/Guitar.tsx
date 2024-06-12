@@ -1,6 +1,18 @@
-export default function Guitar({guitar, addToCart}){
+import type { Guitar } from '../types'
 
-    const {id, name, image, description, price} = guitar
+/*opción 1*/
+type GuitarProps = {
+    guitar: Guitar,
+    addToCart: (item:Guitar) => void
+};
+
+
+/*void no retorna nada
+opción 2:
+export default function Guitar({guitar, addToCart} : {guitar: Guitar, addToCart: (item:Guitar) => void }){*/
+
+export default function Guitar({guitar, addToCart} : GuitarProps){
+    const { name, image, description, price} = guitar
 
 
     return(
@@ -9,7 +21,7 @@ export default function Guitar({guitar, addToCart}){
                     <img className="img-fluid" src={`/img/${image}.jpg`} alt="imagen guitarra" />
                 </div>
                 <div className="col-8">
-                    <h3 className="text-black fs-4 fw-bold text-uppercase">{guitar.name}</h3>
+                    <h3 className="text-black fs-4 fw-bold text-uppercase">{name}</h3>
                     <p>{description}</p>
                     <p className="fw-black text-primary fs-3">${price}</p>
                     <button type="button" className="btn btn-dark w-100" 
@@ -17,7 +29,7 @@ export default function Guitar({guitar, addToCart}){
                     >Agregar al Carrito
                     </button>
                 </div>
-            </div>
+        </div>
     )
 
     /*

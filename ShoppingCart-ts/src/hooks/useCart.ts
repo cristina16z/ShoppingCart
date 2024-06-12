@@ -1,9 +1,11 @@
 import {useState, useEffect, useMemo} from 'react'
 import { db } from "../data/db"
+import type { Guitar, CartItem } from '../types'
+
 
 export const useCart = () => {
 
-    const initialCart = () => {
+    const initialCart = () : CartItem[] => {
         const localStorageCart = localStorage.getItem('cart') //obtener el carrito
 
         /*si hay algo en la variable lo convertimos en un array (está en String), 
@@ -25,7 +27,7 @@ export const useCart = () => {
 
 
 
-    function addToCart(item) {
+    function addToCart(item : Guitar) {
 
         //verificamos si existe, de ésta forma evitaremos añadir múltiples veces un mismo item
         //si existe guardará su posición
@@ -50,8 +52,8 @@ export const useCart = () => {
 
         }else{
             console.log('No existe, agregando producto..')
-            item.quantity = 1
-            setCart([...cart, item])
+            const newItem : CartItem = {...item, quantity: 1}
+            setCart([...cart, newItem])
         }
 
     }
@@ -63,14 +65,14 @@ export const useCart = () => {
     y así filtraremos y sólo se mostrarán las guitars diferentes a la que hemos pasado,
     quitandola del carrito la del id que pasé,
     retornando el array sin la que indiqué*/
-    function removeFromCart(id){
+    function removeFromCart(id: Guitar['id']){
         console.log('Eliminando...', id)
         setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
     }
 
 
 
-    function increaseQuantity(id){
+    function increaseQuantity(id : Guitar['id']){
         console.log('Incrementando', id)
 
         //creamos una nueva variable para modificar un arreglo (no modif sobre el state original)
@@ -89,7 +91,7 @@ export const useCart = () => {
 
 
 
-    function decreaseQuantity(id){
+    function decreaseQuantity(id : Guitar['id']){
         console.log('Decrementando', id)
 
         const updatedCart = cart.map ( item =>{
@@ -107,7 +109,7 @@ export const useCart = () => {
 
 
 
-    function clearCart(e){
+    function clearCart(){
         setCart([])
     }    
 
